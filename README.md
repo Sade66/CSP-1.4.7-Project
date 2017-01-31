@@ -13,3 +13,5 @@ PLTW - Computer Science Principles 1.4.7 Project
 
 ## Prompt Chosen
 **Coming Soon**
+
+**All images are from <http://mmtstock.com/>**
