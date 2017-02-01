@@ -2,6 +2,7 @@ import PIL
 import matplotlib.pyplot as plt
 import os.path
 import PIL.ImageDraw
+from PIL import ImageFilter
 
 def get_images(directory=None):
     if directory == None:
@@ -45,22 +46,18 @@ def frame_all_images(wider, r,g,b, directory=None):
         new_image = frame_image(images[n], wider ,r,g,b)
         newName = os.path.join(new_directory,fname + ".png")
         new_image.save(newName)
-    print 'Success! All your images have been framed!'
+    print 'Success! All images have been framed!'
     
-def filter_image(image, r,g,b):
-    width, height = image.size
-    filter = PIL.Image.new('RGBA', (width, height), (0,0,0,0))
-    drawing_layer = PIL.ImageDraw.Draw(filter)
-    drawing_layer.rectangle([(0,0), (width,height)], fill=(127,0,127,255))
-    result = PIL.Image.new('RGBA', image.size, (r,g,b,127))
-    result.paste(image,(0,0), mask=filter)
-    print 'Filtering Image...'
-    print 'Image',image,'has been filtered.'
-    return result
+def tint_image(image, r,g,b):
+    result = PIL.Image.new('RGBA', image.size, (r,g,b,105))
+    image.paste(result,(0,0),result)
+    print 'Tinting Image...'
+    print 'Image',image,'has been tinted.'
+    return image
     
-def filter_all_images(r,g,b, directory=None):
+def tint_all_images(r,g,b, directory=None):
     directory = os.getcwd()
-    new_directory = os.path.join(directory, "Filtered Images")
+    new_directory = os.path.join(directory, "Tinted Images")
     try:
         os.mkdir(new_directory)
     except:
@@ -68,7 +65,7 @@ def filter_all_images(r,g,b, directory=None):
     images, files = get_images(directory)
     for n in range(len(images)):
         fname,ftype = files[n].split('.')
-        new_image = filter_image(images[n], r,g,b)
+        new_image = tint_image(images[n], r,g,b)
         newName = os.path.join(new_directory,fname + ".png")
         new_image.save(newName)
-    print 'Success! All your images have been filtered!'
+    print 'Success! All images have been tinted!'
