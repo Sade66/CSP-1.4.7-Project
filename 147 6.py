@@ -210,6 +210,3 @@ def contour_all_images(directory=None):
         new_name = os.path.join(new_directory,fname + ".png")
         new_image.save(new_name)
     print 'Success! All images have been contoured!'
-    
-def paste_image_on_image(image, logo, size, placement):
-    
